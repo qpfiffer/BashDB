@@ -24,7 +24,10 @@ function bashdb_set {
 
     OFFSET=$DBSIZE
     METASTR=`printf '%032s' $KEY``printf '%032d' $VAL_LENGTH``printf '%032d' $OFFSET`
+    #echo "Writing $METASTR"
+    #echo "Writing offset $OFFSET"
 
-    dd conv=noerror,notrunc if=<(echo -n $METASTR) of=$METAFILE seek=$IDX bs=1 count=$METACHUNKSIZE &> /dev/null
+    ((TOWRITE = $METACHUNKSIZE + 1))
+    dd conv=noerror,notrunc if=<(echo -n $METASTR) of=$METAFILE seek=$IDX bs=1 count=$TOWRITE &> /dev/null
     echo -n "$3" >> $VALUESFILE
 }
