@@ -10,7 +10,7 @@ function get_values_file_size {
 }
 function get_meta_file_size {
     get_meta_file
-    DBSIZE=$(stat $METAFILE | grep 'Size' | awk '{ print $2 }')
+    METASIZE=$(stat $METAFILE | grep 'Size' | awk '{ print $2 }')
 }
 function bashdb_meta {
     get_table_size
@@ -22,10 +22,11 @@ function create_tables {
 
     mkdir $TABLENAME
 
-    truncate -s $HASHBLOCK $VALUESFILE
+    # We just append values to the end of the bash file
+    touch $VALUESFILE
     truncate -s $METABLOCK $METAFILE
 
-    get_values_size
+    get_values_file_size
 }
 function create_required_partitions {
     REQUIRED_EXTRA_SIZE=$1
@@ -34,7 +35,7 @@ function calc_idx {
     HASH=$1
 
     get_meta_file_size
-    ((TABLESIZE_MINUS_ONE = $DBSIZE - 1))
+    ((TABLESIZE_MINUS_ONE = ($METASIZE / $METACHUNKSIZE) - 1))
     ((IDX = 16#$HASH & $TABLESIZE_MINUS_ONE))
     echo "Index: $IDX"
 }
