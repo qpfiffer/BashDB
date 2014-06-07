@@ -3,7 +3,7 @@ DBSIZE=-1
 HASHBLOCK=16M
 METABLOCK=4M
 METAEXT=.meta
-METACHUNKSIZE=64 # 32-bit integer padded with zeroes + 32-bit offset padded with zeroes (also an integer)
+METACHUNKSIZE=96 # 32-bit integer padded with zeroes + 32-bit offset padded with zeroes (also an integer)
 
 TABLENAME=./bashdb_data
 TABLEEXT=.data

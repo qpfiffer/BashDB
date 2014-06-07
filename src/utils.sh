@@ -37,5 +37,5 @@ function calc_idx {
     get_meta_file_size
     ((TABLESIZE_MINUS_ONE = ($METASIZE / $METACHUNKSIZE) - 1))
     ((IDX = 16#$HASH & $TABLESIZE_MINUS_ONE))
-    echo "Index: $IDX"
+    #echo "Index: $IDX"
 }
