@@ -11,7 +11,8 @@ function bashdb_set {
     get_meta_file
     get_values_file
 
-    KEY=$(echo -n $2 | cut -c-32)
+    # Truncate and right pad string to 32 characters
+    KEY=$(echo -n $2 | cut -c-32 | sed -e :a -e 's/^.\{1,32\}$/&0/;ta')
     KEYHASH=$(echo $2 | sha1sum | awk '{ print $1 }')
     echo "Key: $KEY"
     # Have meta file that is key/value with offset into values file
