@@ -13,7 +13,7 @@ clean:
 	@echo "bcc -O2 $<"
 	@cp $< $@
 
-bashdb: set.o get.o usage.o
+bashdb: utils.o set.o get.o usage.o
 	@cat $(SOURCE_DIR)header.sh $^ $(SOURCE_DIR)main.sh > $(OUTPUT)
 	@chmod +x $(OUTPUT)
 	@echo "[ ----- Hold onto your pants ----- ]"
